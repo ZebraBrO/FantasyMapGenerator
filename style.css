@@ -1,0 +1,47 @@
+body {
+    background-image: url("bodyBackground.jpg");
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    width: 100%;
+    height: 75px;
+    background-color: rgb(212, 179, 138);
+    position: fixed;
+    display: flex;
+    align-items: center;
+}
+
+.headerTitle {
+    margin-left: 50px;
+}
+
+.headerMenu {
+    display: flex;
+    margin-left: auto;
+    margin-right: 35px;
+}
+
+.menuButtons {
+    padding: 0 15px;
+    margin: 0 10px;
+    height: 30px;
+    text-align: center;
+}
+
+.authForm {
+    background-color: rgb(0, 0, 0, 0.5);
+    height: 100vh;
+    display: flex;
+}
+
+.authFormBody {
+    background-color: rgb(255, 255, 255);
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
