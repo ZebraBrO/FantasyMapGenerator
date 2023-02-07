@@ -1,2 +1,2 @@
 # FantasyMapGenerator
-Fantasy map generator for your faivorite TTRPG
+Fantasy map generator for your favorite TTRPG
