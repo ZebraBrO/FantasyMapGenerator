@@ -1,6 +1,7 @@
 var stateAuth;
 var stateSignUp;
 
+
 auth();
 
 function auth() {
