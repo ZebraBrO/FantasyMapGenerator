@@ -30,7 +30,7 @@ header {
     text-align: center;
 }
 
-.authForm {
+.modalAuthForm {
     background-color: rgb(0, 0, 0, 0.5);
     height: 100vh;
     display: flex;
@@ -39,9 +39,22 @@ header {
 .authFormBody {
     background-color: rgb(255, 255, 255);
     width: 300px;
-    height: 300px;
+    height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
+}
+
+.authFormSignIn {
+    display: flex;
+}
+
+.authFormSignUp {
+    display: none;
+}
+
+.signBtn {
+    
+    margin-bottom: 10px;
 }
