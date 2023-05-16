@@ -1,3 +1,31 @@
+<?php
+session_start();
+
+$valid_username = 'admin';
+$valid_password = 'password';
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if ($username === $valid_username && $password === $valid_password) {
+        $_SESSION['username'] = $username;
+        $_SESSION['authenticated'] = true;
+        header('Location: index.php');
+        exit();
+    } else {
+        $_SESSION['error_message'] = 'Неверный логин или пароль';
+    }
+}
+
+if (isset($_GET['logout'])) {
+    $_SESSION = array();
+    session_destroy();
+    header('Location: index.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,59 +50,49 @@
             <button class="menuButtons" onclick="auth()">Account</button>
         </div>
     </header>
+
     <section class="modalAuthForm" id="authForm">
-        <div class="authFormBody">
-            <form method="POST" enctype="multipart/form-data">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="<?php echo isset($_COOKIE['username']) ? $_COOKIE['username'] : ''; ?>"><br>
-              
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password"><br>
-            
-              
-                <input type="submit" name="submit" value="Sign In">
-            </form>
-            <table class="authFormSignUp" id="signUp">
-                <tr>
-                    <td class="lbl"><label for="Login/email">Login/email:</label></td>
-                    <td><input class="fld" id="Login/email" type="text" required></td>
-                </tr>
-                <tr>
-                    <td class="lbl"><label for="password">Password:</label></td>
-                    <td><input class="fld" id="password" type="text" required></td>
-                </tr>
-                <tr>
-                    <td><p>Sign in</p></td>
-                    <td><button>Sing in</button></td>
-                </tr>
-                <tr>
-                    <td><p>Sign up</p></td>
-                    <td><button onclick="signUp()">Sing up</button></td>
-                </tr>
-            </table>
-            
-        </div>
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="error-message"><?php echo $_SESSION['error_message']; ?></div>
+        <?php endif; ?>
+        
+        <?php if (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+            <div class="authFormBody">Вы вошли в аккаунт<a href="login.php?logout=true" class="menuButtons">Выйти</a></div>
+        <?php else: ?>
+            <div class="authFormBody">
+                <form action="login.php" method="post">
+                    <?php if (isset($_SESSION['error_message'])): ?>
+                        <div class="error-message"><?php echo $_SESSION['error_message']; ?></div>
+                    <?php endif; ?>
+                    <label for="username">Логин:</label>
+                    <input type="text" id="username" name="username">
+                    <br>
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password">
+                    <br>
+                    <input type="submit" value="Войти">
+                </form>
+                <table class="authFormSignUp" id="signUp">
+                    <tr>
+                        <td class="lbl"><label for="Login/email">Login/email:</label></td>
+                        <td><input class="fld" id="Login/email" type="text" required></td>
+                    </tr>
+                    <tr>
+                        <td class="lbl"><label for="password">Password:</label></td>
+                        <td><input class="fld" id="password" type="text" required></td>
+                    </tr>
+                    <tr>
+                        <td><p>Sign in</p></td>
+                        <td><button>Sing in</button></td>
+                    </tr>
+                    <tr>
+                        <td><p>Sign up</p></td>
+                        <td><button onclick="signUp()">Sing up</button></td>
+                    </tr>
+                </table>
+            </div>
+        <?php endif; ?>
     </section>
-    
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $file = $_FILES['file'];
-
-    setcookie('username', $username, time() + 3600); // сохраняем имя пользователя в cookie
-    }
-
-    // проверяем, есть ли сохраненные значения в cookie
-    $username = isset($_COOKIE['username']) ? $_COOKIE['username'] : '';
-    $password = '';
-
-    // если есть POST-параметры и нет сохраненных значений в cookie, используем POST-параметры
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$username) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    }
-    ?>
-    <script src="script.js"></script>
+        <script src="script.js"></script>
 </body>
 </html>

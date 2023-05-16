@@ -1,9 +1,6 @@
 var stateAuth;
 var stateSignUp;
 
-
-auth();
-
 function auth() {
     stateSignUp = 0;
     if (stateAuth == null) {
