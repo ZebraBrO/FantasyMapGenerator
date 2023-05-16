@@ -1,32 +1,3 @@
-<?php
-session_start();
-
-$valid_username = 'admin';
-$valid_password = 'password';
-
-if (isset($_POST['username']) && isset($_POST['password'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    if ($username === $valid_username && $password === $valid_password) {
-        $_SESSION['username'] = $username;
-        $_SESSION['authenticated'] = true;
-        header('Location: index.php');
-        exit();
-    } else {
-        $_SESSION['error_message'] = 'Неверный логин или пароль';
-    }
-}
-
-if (isset($_GET['logout'])) {
-    $_SESSION = array();
-    session_destroy();
-    header('Location: index.php');
-    exit();
-}
-?>
-
-<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,56 +14,40 @@ if (isset($_GET['logout'])) {
         </div>
 
         <div class="headerMenu">
-            <button class="menuButtons">Map</button>
-            <button class="menuButtons">Story</button>
-            <button class="menuButtons">Characters</button>
-            <button class="menuButtons">Campaigns</button>
-            <button class="menuButtons" onclick="auth()">Account</button>
+            <a href="index.php">Home</a>
+            <a href="index.php?page=map">Map</a>
+            <a href="index.php?page=characters">Characters</a>
+            <a href="index.php?page=campaigns">Campaigns</a>
+            <a href="index.php?page=account">Account</a>
         </div>
     </header>
 
-    <section class="modalAuthForm" id="authForm">
-        <?php if (isset($_SESSION['error_message'])): ?>
-            <div class="error-message"><?php echo $_SESSION['error_message']; ?></div>
-        <?php endif; ?>
-        
-        <?php if (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
-            <div class="authFormBody">Вы вошли в аккаунт<a href="login.php?logout=true" class="menuButtons">Выйти</a></div>
-        <?php else: ?>
-            <div class="authFormBody">
-                <form action="login.php" method="post">
-                    <?php if (isset($_SESSION['error_message'])): ?>
-                        <div class="error-message"><?php echo $_SESSION['error_message']; ?></div>
-                    <?php endif; ?>
-                    <label for="username">Логин: </label>
-                    <input type="text" id="username" name="username">
-                    <br>
-                    <label for="password">Пароль:</label>
-                    <input type="password" id="password" name="password">
-                    <br>
-                    <input type="submit" value="Войти">
-                </form>
-                <table class="authFormSignUp" id="signUp">
-                    <tr>
-                        <td class="lbl"><label for="Login/email">Login/email:</label></td>
-                        <td><input class="fld" id="Login/email" type="text" required></td>
-                    </tr>
-                    <tr>
-                        <td class="lbl"><label for="password">Password:</label></td>
-                        <td><input class="fld" id="password" type="text" required></td>
-                    </tr>
-                    <tr>
-                        <td><p>Sign in</p></td>
-                        <td><button>Sing in</button></td>
-                    </tr>
-                    <tr>
-                        <td><p>Sign up</p></td>
-                        <td><button onclick="signUp()">Sing up</button></td>
-                    </tr>
-                </table>
-            </div>
-        <?php endif; ?>
-    </section>
-        <script src="script.js"></script>
+    <div class="container">
+        <?php
+        // Проверяем GET-параметр "page" и подключаем соответствующий файл
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+
+            if ($page === 'map') {
+                require('map.php');
+            } elseif ($page === 'characters') {
+                require('characters.php');
+            } elseif ($page === 'campaigns') {
+                require('campaigns.php');
+            } elseif ($page === 'account') {
+                require('account.php');
+            } else {
+                // Если значение GET-параметра "page" не соответствует ни одному из ожидаемых,
+                // можно вывести сообщение об ошибке или перенаправить на другую страницу.
+                echo 'Страница не найдена';
+            }
+        } else {
+            // Если GET-параметр "page" не задан, выводим содержимое главной страницы
+            echo 'Добро пожаловать на главную страницу';
+        }
+        ?>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

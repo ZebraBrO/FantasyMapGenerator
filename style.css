@@ -1,12 +1,52 @@
-body {
-    background-image: url("bodyBackground.jpg");
+  body {
+    background-image: url(bodyBackground.jpg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-}
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 800px;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .campaign {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+  .campaign-description {
+        max-width: 400px;
+    }
+
+  .character {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+
 
 header {
     width: 100%;
-    height: 75px;
+    height: 50px;
     background-color: rgb(212, 179, 138);
     position: fixed;
     display: flex;
@@ -37,13 +77,23 @@ header {
 }
 
 .authFormBody {
-    background-color: rgb(255, 255, 255);
-    width: 300px;
-    height: 150px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin: auto;
+    justify-content: center;
+    height: 100vh;
+}
+
+.authFormContainer {
+    background-color: #f0f0f0;
+    background-size: cover;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.authFormBody form, .authFormBody table {
+    margin-top: 20px;
 }
 
 .authFormSignIn {
