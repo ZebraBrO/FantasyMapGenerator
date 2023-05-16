@@ -64,7 +64,7 @@ if (isset($_GET['logout'])) {
                     <?php if (isset($_SESSION['error_message'])): ?>
                         <div class="error-message"><?php echo $_SESSION['error_message']; ?></div>
                     <?php endif; ?>
-                    <label for="username">Логин:</label>
+                    <label for="username">Логин: </label>
                     <input type="text" id="username" name="username">
                     <br>
                     <label for="password">Пароль:</label>
