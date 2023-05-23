@@ -1,3 +1,7 @@
+<?php
+session_start();
+unset($_SESSION['error_message']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +18,6 @@
         </div>
 
         <div class="headerMenu">
-            <a href="index.php">Home</a>
             <a href="index.php?page=map">Map</a>
             <a href="index.php?page=characters">Characters</a>
             <a href="index.php?page=campaigns">Campaigns</a>
